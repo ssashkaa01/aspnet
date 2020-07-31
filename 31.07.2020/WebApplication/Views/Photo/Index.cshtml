@@ -1,0 +1,57 @@
+﻿@model IEnumerable<WebApplication.Models.PhotoVM>
+
+@{
+    ViewBag.Title = "Фото";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Список фото</h2>
+
+<p>
+    @Html.ActionLink("Додати фото", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UrlLink)
+        </th>
+        <th>
+
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                <img src="@item.UrlLink" alt="@item.Name" width="150" />
+            </td>
+        </tr>
+        <td>
+            @Html.ActionLink("Редагувати", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Видалити", "Delete", new { id = item.Id }, new { action = "delete" })
+        </td>
+    }
+
+</table>
+
+<script>
+    var items = document.querySelectorAll('a[action="delete"]');
+
+    items.forEach(function (item) {
+        item.addEventListener('click', function (e) {
+
+            if (!confirm("Ви впевнені, що хочете видалити?")) {
+                e.preventDefault();
+            }
+        });
+    });
+
+</script>
+
